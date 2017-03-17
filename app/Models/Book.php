@@ -1,29 +1,24 @@
 <?php
 
-namespace App\Models;
+namespace App\Model;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\Book as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Book extends Authenticatable
+class Book extends Model
 {
-    use Notifiable;
+    protected $fillable = ['book_name', 'book_author', 'book_owner', 'book_description'];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'book_name', 'book_author', 'book_owner', 'book_description',
-    ];
+    protected $hidden = ['publisher_id', 'remember_token'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function user() {
+      return $this->belongsTo(User::class);
+    }
+
+    public function publisher() {
+      return $this->hasMany(Publishers::class);
+    }
+
+    public function tag() {
+      return $this->hasMany(Tags::class);
+    }
 }
