@@ -6,19 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $fillable = ['book_name', 'book_author', 'book_owner', 'book_description'];
+    protected $fillable = [
+        'bk_name', 'bk_author', 'pub_id', 'bk_owner', 'bk_description'
+    ];
 
-    protected $hidden = ['publisher_id', 'remember_token'];
+    protected $hidden = [
+        'remember_token'
+    ];
 
-    public function user() {
+    public function user()
+    {
       return $this->belongsTo(User::class);
     }
 
-    public function publisher() {
-      return $this->hasMany(Publishers::class);
+    public function publisher()
+    {
+      return $this->hasMany(Publisher::class);
     }
 
-    public function tag() {
-      return $this->hasMany(Tags::class);
-    }
 }

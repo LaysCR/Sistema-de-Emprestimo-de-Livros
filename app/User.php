@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_name', 'user_email', 'user_password',
+        'usr_name', 'usr_email', 'usr_password',
     ];
 
     /**
@@ -24,10 +24,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'user_password', 'remember_token',
+        'usr_password', 'remember_token',
     ];
 
-    public function book() {
-      $this->hasMany(Books::class);
+    public function book()
+    {
+      $this->hasMany(Book::class);
     }
 }

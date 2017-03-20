@@ -13,13 +13,14 @@ class CreateBooksTable extends Migration
      */
     public function up()
     {
-      Schema::create('books', function (Blueprint $table) {
-          $table->increments('book_id');
-          $table->string('book_name');
-          $table->string('book_author');
-          $table->string('book_owner');
-          $table->string('book_description');
-          $table->foreign('book_publisher_id')->references('publisher_id')->on('publishers');
+      Schema::create('rbk_books', function (Blueprint $table) {
+          $table->increments('bk_id');
+          $table->string('bk_name');
+          $table->string('bk_author');
+          $table->string('bk_owner');
+          $table->text('bk_description');
+          $table->integer('bk_pub_id')->unsigned();
+          $table->foreign('bk_pub_id')->references('pub_id')->on('rbk_publishers');
           $table->rememberToken();
           $table->timestamps();
       });
@@ -32,6 +33,6 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('rbk_books');
     }
 }

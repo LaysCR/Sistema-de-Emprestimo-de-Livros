@@ -13,9 +13,9 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-      Schema::create('tags', function (Blueprint $table) {
-          $table->increments('tag_id');
-          $table->string('tag_name');
+      Schema::create('rbk_tags', function (Blueprint $table) {
+          $table->increments('tg_id');
+          $table->string('tg_name');
           $table->rememberToken();
           $table->timestamps();
       });
@@ -28,6 +28,6 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('rbk_tags');
     }
 }

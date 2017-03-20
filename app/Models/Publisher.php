@@ -8,7 +8,8 @@ class Publisher extends Model
 {
     //
 
-    public function book() {
-      return $this->belongsTo(Books::class);
+    public function book()
+    {
+      return $this->belongsToMany(Book::class);
     }
 }
