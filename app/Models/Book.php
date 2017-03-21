@@ -21,7 +21,11 @@ class Book extends Model
 
     public function publisher()
     {
-      return $this->hasMany(Publisher::class);
+      return $this->belongsTo(Publisher::class);
     }
 
+    public function tag()
+    {
+      return $this->hasMany()(Tag::class);
+    }
 }
