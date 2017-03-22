@@ -19,7 +19,6 @@ class CreateBooksTagsTable extends Migration
           $table->integer('bt_tg_id')->unsigned();
           $table->foreign('bt_bk_id')->references('bk_id')->on('rbk_books');
           $table->foreign('bt_tg_id')->references('tg_id')->on('rbk_tags');
-          $table->rememberToken();
           $table->timestamps();
       });
     }

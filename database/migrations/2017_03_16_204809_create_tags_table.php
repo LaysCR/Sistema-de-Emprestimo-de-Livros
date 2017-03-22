@@ -16,7 +16,6 @@ class CreateTagsTable extends Migration
       Schema::create('rbk_tags', function (Blueprint $table) {
           $table->increments('tg_id');
           $table->string('tg_name');
-          $table->rememberToken();
           $table->timestamps();
       });
     }

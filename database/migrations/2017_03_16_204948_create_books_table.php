@@ -21,7 +21,6 @@ class CreateBooksTable extends Migration
           $table->text('bk_description');
           $table->integer('bk_pub_id')->unsigned();
           $table->foreign('bk_pub_id')->references('pub_id')->on('rbk_publishers');
-          $table->rememberToken();
           $table->timestamps();
       });
     }

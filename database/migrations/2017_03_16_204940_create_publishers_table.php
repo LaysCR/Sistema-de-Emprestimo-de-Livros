@@ -16,7 +16,6 @@ class CreatePublishersTable extends Migration
       Schema::create('rbk_publishers', function (Blueprint $table) {
           $table->increments('pub_id');
           $table->string('pub_name');
-          $table->rememberToken();
           $table->timestamps();
       });
     }
