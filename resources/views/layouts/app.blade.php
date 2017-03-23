@@ -24,10 +24,13 @@
                   <div class="navbar-header">
                     <a class="navbar-brand">Livros DTE</a>
                   </div>
+                  <ul class="nav navbar-nav">
+                    <li>@yield('btn-modal')</li>
+                  </ul>
                   <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-down"></span></a>
                          <ul class="dropdown-menu">
-                           <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                           <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
                          </ul>
                     </li>
                   </ul>

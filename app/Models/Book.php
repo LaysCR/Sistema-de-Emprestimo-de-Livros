@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Publisher;
+use App\Models\Tag;
 
 class Book extends Model
 {
@@ -10,7 +12,7 @@ class Book extends Model
     protected $primaryKey = "bk_id";
 
     protected $fillable = [
-        'bk_name', 'bk_author', 'pub_id', 'bk_owner', 'bk_description'
+        'bk_name', 'bk_author', 'bk_pub_id', 'bk_owner', 'bk_description'
     ];
 
     protected $hidden = [
@@ -24,7 +26,7 @@ class Book extends Model
 
     public function publisher()
     {
-      return $this->belongsTo(Publisher::class);
+      return $this->belongsTo(Publisher::class, 'bk_pub_id', 'pub_id');
     }
 
     public function tag()
