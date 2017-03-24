@@ -45,6 +45,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
           'bk_name' => 'required|max:240',
           'bk_author' => 'required|max:240',
@@ -53,6 +54,8 @@ class BookController extends Controller
         ]);
 
         Book::create($request->except('_token'));
+
+        
 
         return redirect('/');
     }

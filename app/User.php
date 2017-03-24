@@ -15,11 +15,11 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $table = "rbk_users";
-    protected $primaryKey = "usr_id";
+    protected $table = "users";
+    protected $primaryKey = "id";
 
     protected $fillable = [
-        'usr_name', 'usr_email', 'usr_password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'usr_password', 'remember_token',
+        'password', 'remember_token',
     ];
 
     public function book()
