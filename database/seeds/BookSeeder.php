@@ -20,7 +20,7 @@ class BookSeeder extends Seeder
           $book->bk_name = $faker->sentence;
           $book->bk_author = $faker->name;
           $book->bk_owner = $faker->name;
-          $book->bk_pub_id = 1;
+          $book->bk_pub_id = $faker->biasedNumberBetween(1,5);
           $book->bk_description = $faker->text;
           $book->save();
         }

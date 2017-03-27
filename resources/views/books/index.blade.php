@@ -4,7 +4,7 @@
 
     {{-- Table --}}
     <div class="container">
-      <table class="table">
+      <table class="table table">
         <thead>
           <tr>
             <th>Título</th>
@@ -12,6 +12,7 @@
             <th>Editora</th>
             <th>Dono</th>
             <th>Descrição</th>
+            <th style="color:gray">Gerenciar <i class="fa fa-cogs"></i></th>
           </tr>
         </thead>
 
@@ -23,6 +24,14 @@
             <td>{{ $book->publisher->pub_name }}</td>
             <td>{{ $book->bk_owner }}</td>
             <td>{{ $book->bk_description }}</td>
+            <td style="padding-top:20px">
+              <div class="col-md-6" style="margin-left:-15px">
+                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+              </div>
+              <div class="col-md-6" style="margin-left:5px">
+                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+              </div>
+            </td>
           </tr>
           @endforeach
         </tbody>
