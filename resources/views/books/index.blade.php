@@ -98,13 +98,13 @@
 
   $(document).ready(function(){
 
-    var bk_id;
     // Select2
     $("#tags").select2();
+    $(".btn-delete").on("click", deleteBook);
 
     function deleteBook()
     {
-      bk_id = JSON.parse($(this).closest('td').attr("value"));
+      var bk_id = JSON.parse($(this).closest('td').attr("value"));
       var row = $(this).closest('tr'); console.log(row);
       var token = $("meta[name=csrf-token]").attr("content");
 
@@ -140,8 +140,6 @@
       });
 
     }
-
-    $(".btn-delete").on("click", deleteBook);
 
   });
 
