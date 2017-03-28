@@ -24,12 +24,12 @@
             <td>{{ $book->publisher->pub_name }}</td>
             <td>{{ $book->bk_owner }}</td>
             <td>{{ $book->bk_description }}</td>
-            <td style="padding-top:20px">
+            <td value="{{ $book->bk_id }}" style="padding-top:20px">
               <div class="col-md-6" style="margin-left:-15px">
-                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
               </div>
               <div class="col-md-6" style="margin-left:5px">
-                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
               </div>
             </td>
           </tr>
@@ -86,6 +86,55 @@
 
 @section('script')
 
+  <script type="text/javascript">
 
+  $(document).ready(function(){
+
+    var bk_id;
+
+    function deleteBook()
+    {
+      bk_id = JSON.parse($(this).closest('td').attr("value"));
+      var row = $(this).closest('tr'); console.log(row);
+      var token = $("meta[name=csrf-token]").attr("content");
+
+      // Sweetalert
+      swal({
+        title: "Deseja deletar o livro?",
+        text: "Você não poderar recuperar o livro deletado !",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim, deletar!",
+        cancelButtonText: "Não, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfirm){
+        if (isConfirm) {
+          $.ajax({
+            url : '/' + bk_id,
+            method : "POST",
+            data : {
+              _token : token,
+              _method : "DELETE"
+            },
+            success: function(response) {
+              row.remove();
+              swal("Deletado!", "O arquivo foi deletado com sucesso.", "success");
+            }
+          });
+        } else {
+      	    swal("Cancelado", "O arquivo não foi deletado", "error");
+        }
+      });
+
+    }
+
+    $(".btn-delete").on("click", deleteBook);
+
+  });
+
+  </script>
 
 @endsection

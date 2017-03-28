@@ -55,7 +55,7 @@ class BookController extends Controller
 
         Book::create($request->except('_token'));
 
-        
+
 
         return redirect('/');
     }
@@ -100,8 +100,10 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect('/');
     }
 }

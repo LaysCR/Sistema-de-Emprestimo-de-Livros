@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', 'BookController@index')->name('book.index');
 Route::post('/', 'BookController@store')->name('book.store');
-
-Auth::routes();
+Route::delete('/{book}', 'BookController@destroy')->name('book.destroy');
 
 Route::get('/home', 'HomeController@index');
