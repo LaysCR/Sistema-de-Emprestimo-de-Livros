@@ -15,9 +15,9 @@
     <!--Bootstrap-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
     <!--Toastr-->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
 
@@ -75,12 +75,13 @@
                     <ul class="nav navbar-nav">
                       @if (!Auth::guest())
                         <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-book"></i> Cadastrar Livro</a></li>
+                        <li><a id="btn-rent" href="#" type="button"><i class="fa fa-folder-open"></i> Empréstimos</a></li>
                       @endif
-                      <li><a href="{{ route('register') }}"><i class="fa fa-user-plus"></i> Cadastrar Usuário</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                      <li><a href="{{ route('register') }}"><i class="fa fa-user-plus"></i> Cadastrar Usuário</a></li>
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Entrar <i class="fa fa-sign-in"></i></a></li>

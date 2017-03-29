@@ -66,14 +66,6 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="tg_id" class="control-label">Tags:</label>
-                <select id="tags" class="form-control" name="td_id" multiple="multiple">
-                  @foreach ($tags as $tg_id => $tg_name)
-                    <option value="{{ $tg_id }}">{{ $tg_name }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
                 <label for="bk_owner" class="control-label">Dono:</label>
                 <input type="text" class="form-control" name="bk_owner" id="bk_owner">
               </div>
@@ -140,6 +132,7 @@
       });
 
     }
+
 
   });
 

@@ -24,11 +24,9 @@ class BookController extends Controller
     {
         $books = Book::all();
         $publishers = Publisher::pluck('pub_name', 'pub_id');
-        $tags = Tag::pluck('tg_name', 'tg_id');
 
         return view('books.index', ['books' => $books,
-                                    'publishers' => $publishers,
-                                    'tags' => $tags]);
+                                    'publishers' => $publishers ]);
     }
 
     /**
