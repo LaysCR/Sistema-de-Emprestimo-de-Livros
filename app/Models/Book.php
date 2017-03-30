@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Publisher;
-use App\Models\Tag;
+use App\Models\Loan;
 
 class Book extends Model
 {
@@ -29,8 +29,8 @@ class Book extends Model
       return $this->belongsTo(Publisher::class, 'bk_pub_id', 'pub_id');
     }
 
-    public function tag()
+    public function loan()
     {
-      return $this->hasMany()(Tag::class);
+      return $this->belongsTo(Loan::class);
     }
 }

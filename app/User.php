@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Book;
+use App\Models\Role;
+use App\Models\Loan;
 
 class User extends Authenticatable
 {
@@ -19,7 +21,7 @@ class User extends Authenticatable
     protected $primaryKey = "id";
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'user_rle_id'
     ];
 
     /**
@@ -31,8 +33,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    // Check if admin
+    public function isAdmin()
+    {
+      if('name' == 'admin'){
+        return true;
+      }
+      return false;
+    }
+
     public function book()
     {
-      $this->hasMany(Book::class);
+      return $this->hasMany(Book::class);
+    }
+
+    public function role()
+    {
+      return $this->hasOne(Role::class, 'user_rle_id', 'id');
+    }
+
+    public function loan()
+    {
+      return $this->hasMany(Loan::class);
     }
 }
