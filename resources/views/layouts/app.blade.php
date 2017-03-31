@@ -75,13 +75,12 @@
                     <ul class="nav navbar-nav">
                       @if (!Auth::guest())
                         <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-book"></i> Cadastrar Livro</a></li>
-                        <li><a id="btn-rent" href="#" type="button"><i class="fa fa-folder-open"></i> Empréstimos</a></li>
                       @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                      <li><a href="{{ route('register') }}"><i class="fa fa-user-plus"></i> Cadastrar Usuário</a></li>
+                      {{-- <li><a href="{{ route('register') }}"><i class="fa fa-user-plus"></i> Cadastrar Usuário</a></li> --}}
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Entrar <i class="fa fa-sign-in"></i></a></li>
