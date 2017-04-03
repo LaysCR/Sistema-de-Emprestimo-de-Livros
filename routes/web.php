@@ -13,7 +13,7 @@
 Auth::routes();
 //Admin
 Route::get('/', 'BookController@index')->name('book.index');
-Route::post('/', 'BookController@store')->name('book.store');
+Route::post('/book', 'BookController@store')->name('book.store');
 Route::delete('/{book}', 'BookController@destroy')->name('book.destroy');
 //Other
 Route::get('/admin', 'AdminController@index')->name('admin.index');

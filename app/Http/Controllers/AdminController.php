@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\User;
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\Publisher;
 
 class AdminController extends Controller
 {
@@ -19,10 +20,14 @@ class AdminController extends Controller
     {
         $users = User::all();
         $books = Book::all();
+        $loans = Loan::all();
+        $publishers = Publisher::all();
 
         return view('admin.index', [
           'users' => $users,
-          'books' => $books
+          'books' => $books,
+          'loans' => $loans,
+          'publishers' => $publishers
         ]);
     }
 
@@ -48,7 +53,7 @@ class AdminController extends Controller
         $today = new \DateTime();
         $due = new \DateTime();
         $due->add(new \DateInterval("P14D"));
-        
+
         try{
           $loan = new Loan();
           $loan->ln_user_id = $request->user;

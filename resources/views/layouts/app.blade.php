@@ -20,6 +20,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!--Toastr-->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
     <!--Sweetalert-->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
@@ -45,13 +47,14 @@
         ]) !!};
     </script>
 
+    @yield('style')
     @yield('script')
 
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+            <div class="container-fluid" style="margin: 0 50px 0">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
