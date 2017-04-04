@@ -11,14 +11,16 @@
 |
 */
 Auth::routes();
-//Admin
+//Book
 Route::get('/', 'BookController@index')->name('book.index');
 Route::post('/book', 'BookController@store')->name('book.store');
 Route::delete('/{book}', 'BookController@destroy')->name('book.destroy');
-//Other
-Route::get('/admin', 'AdminController@index')->name('admin.index');
-Route::post('/loan', 'AdminController@storeLoan')->name('admin.storeLoan');
 
+//Loan
+Route::post('/loan', 'LoanController@store')->name('loan.store');
+
+//Admin
+Route::get('/admin', 'AdminController@index')->name('admin.index');
 //User
 
 

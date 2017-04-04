@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\User;
-use App\Models\Book;
 use App\Models\Loan;
-use App\Models\Publisher;
 
-class AdminController extends Controller
+class LoanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,17 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $books = Book::all();
-        $loans = Loan::all();
-        $publishers = Publisher::all();
-
-        return view('admin.index', [
-          'users' => $users,
-          'books' => $books,
-          'loans' => $loans,
-          'publishers' => $publishers
-        ]);
+        //
     }
 
     /**
@@ -49,7 +36,23 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-      //
+        $today = new \DateTime();
+        $due = new \DateTime();
+        $due->add(new \DateInterval("P14D"));
+        try{
+          $loan = new Loan();
+          $loan->ln_user_id = $request->user;
+          $loan->ln_bk_id = $request->book;
+          $loan->ln_date = $today->format('Y-m-d');
+          $loan->ln_due_date = $due->format('Y-m-d');
+          $loan->ln_status = 'ok';
+          $loan->save();
+
+          return new JsonResponse([$loan, 200]);
+        } catch(\Exception $e){
+            throw $e;
+        }
+
     }
 
     /**

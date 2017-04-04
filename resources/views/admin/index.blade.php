@@ -71,7 +71,7 @@
                 <option selected disabled>Selecione um usuário</option>
                 @foreach ($users as $user)
                   @if($user->user_rle_id == 1)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    <option id="loanUserOption{{ $user->id }}" value="{{ $user->id }}">{{ $user->name }}</option>
                   @endif
                 @endforeach
                 </select>
@@ -81,7 +81,7 @@
                 <select id="loan-form-book" class="form-control" name="loan-form-book">
                 <option selected disabled>Selecione um livro</option>
                 @foreach ($books as $book)
-                    <option value="{{ $book->bk_id }}">{{ $book->bk_name }}</option>
+                    <option id="loanBookOption{{ $book->bk_id }}" value="{{ $book->bk_id }}">{{ $book->bk_name }}</option>
                 @endforeach
                 </select>
               </div>
@@ -108,7 +108,7 @@
             <form id="postBook" action="{{ url('/') }}" method="POST"> {{ csrf_field() }}
               <div class="form-group">
                 <label for="bk_name" class="control-label">Título:</label>
-                <input type="text" class="form-control" name="bk_name" id="bk_name"----------------->
+                <input type="text" class="form-control" name="bk_name" id="bk_name">
               </div>
               <div class="form-group">
                 <label for="bk_author" class="control-label">Autor:</label>
@@ -141,6 +141,11 @@
       </div>
     </div>
 
+    {{-- User Modal --}}
+    <div class="modal fade" id="add-user" tabindex="-1" role="dialog">
+
+    </div>
+
 
   <div class="content">
 
@@ -150,7 +155,7 @@
           <div class="panel-heading">
               <h3 class="panel-title"><b>Empréstimos</b></h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body loanList">
             @foreach ($loans as $loan)
               <div class="panel panel-default inner">
                 <div class="panel-body">
@@ -174,7 +179,7 @@
           <div class="panel-heading">
               <h3 class="panel-title"><b>Livros</b></h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body bookList">
             @foreach ($books as $book)
               <div class="panel panel-default inner">
                 <div class="panel-body">
@@ -228,6 +233,9 @@
     {
       $("#add-loan").modal("toggle");
     });
+    $('#add-loan').on('hidden', function () {
+      $('select').val('');
+    });
 
     $("#btn-add-book").on("click", function(){
       $("#add-book").modal("toggle");
@@ -239,6 +247,8 @@
 
       var user = $("#loan-form-user").val();
       var book = $("#loan-form-book").val();
+      var userName = $('#loanUserOption'+user).text();
+      var bookName = $('#loanBookOption'+book).text();
       var token = $("meta[name=csrf-token]").attr("content");
 
       $.ajax({
@@ -249,11 +259,19 @@
           user : user,
           book : book
         },
-        success: function(response){
+        success: function(data){
           $("#add-loan").modal("toggle");
-          console.log(response);
-          //
-          location.href = "{{ route('admin.index') }}";
+          console.log(data[0]);
+          // console.log([userName, bookName]);
+          var newLoan = '<div class="panel panel-default inner">' +
+                          '<div class="panel-body">' +
+                                userName + ' - ' + bookName +
+                          '</div>' +
+                          '<div class="panel-footer">' +
+                            '<p>' + data[0].ln_due_date +'</p>' +
+                          '</div>' +
+                        '</div>';
+          $('.loanList').append(newLoan);
         },
         error: function(response){
           console.log(response);
@@ -265,16 +283,30 @@
       e.preventDefault();
 
       var data = $("#postBook").serialize();
+
       $.ajax({
         url : "/book",
         method : "POST",
         data : data,
-        success: function(){
-          console.log("WIIIIIIIIIIIIIII");
+        success: function(data){
+          $("#add-book").modal("toggle");
+          console.log(data);
+          var newBook = '<div class="panel panel-default inner">' +
+                          '<div class="panel-body">' +
+                                data[0].bk_name + ' - ' + data[0].bk_author +
+                          '</div>' +
+                          '<div class="panel-footer">' +
+                            '<p>' + data[0].bk_owner +'</p>' +
+                          '</div>' +
+                        '</div>';
+          $('.bookList').append(newBook);
+        },
+        error: function(response){
+          console.log(response);
         }
       });
-
     });
+
 
   });
 

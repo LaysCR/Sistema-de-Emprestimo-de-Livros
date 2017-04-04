@@ -11,5 +11,7 @@ const { mix } = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+// mix.js('resources/assets/js/app.js', 'public/js')
+  //  .sass('resources/assets/sass/app.scss', 'public/css');
+// mix.copy('node_modules/admin-lte/dist/css/AdminLTE.css', 'public/css');
+// mix.copy('node_modules/admin-lte/dist/js/app.js', 'public/js');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\Book;
 use App\Models\Publisher;
 use App\Models\Tag;
@@ -55,11 +56,24 @@ class BookController extends Controller
           'bk_description' => 'required|max:240'
         ]);
 
-        Book::create($request->except('_token'));
 
 
+        try{
+          $book = new Book();
+          $book->bk_name = $request->bk_name;
+          $book->bk_author = $request->bk_author;
+          $book->bk_owner = $request->bk_owner;
+          $book->bk_description = $request->bk_description;
+          $book->bk_pub_id = $request->bk_pub_id;
 
-        return redirect('/');
+          $book->save();
+
+          return new JsonResponse([$book, 200]);
+
+        } catch(\Exception $e){
+          throw $e;
+        }
+
     }
 
     /**
