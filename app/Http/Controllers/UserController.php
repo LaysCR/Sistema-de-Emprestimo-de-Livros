@@ -5,12 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\User;
-use App\Models\Book;
-use App\Models\Loan;
-use App\Models\Publisher;
-use App\Models\Role;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,19 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $books = Book::all();
-        $loans = Loan::all();
-        $publishers = Publisher::all();
-        $roles = Role::all();
-
-        return view('admin.index', [
-          'users' => $users,
-          'books' => $books,
-          'loans' => $loans,
-          'publishers' => $publishers,
-          'roles' => $roles
-        ]);
+        //
     }
 
     /**
@@ -52,7 +36,21 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-      //
+      try{
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->user_rle_id = $request->user_rle_id;
+        $user->password = $request->password;
+
+        $user->save();
+
+        return new JsonResponse([$user, 200]);
+
+      } catch(\Exception $e){
+        throw $e;
+      }
     }
 
     /**

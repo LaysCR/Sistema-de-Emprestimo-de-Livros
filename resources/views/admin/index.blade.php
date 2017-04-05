@@ -55,7 +55,7 @@
 
 @section('content')
 
-      {{-- Loan Modal --}}
+    {{-- Loan Modal --}}
     <div class="modal fade" id="add-loan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -96,7 +96,6 @@
     </div>
 
     {{-- Book Modal --}}
-
     <div class="modal fade" id="add-book" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -143,7 +142,43 @@
 
     {{-- User Modal --}}
     <div class="modal fade" id="add-user" tabindex="-1" role="dialog">
-
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Cadastrar Usuário</h4>
+          </div>
+          <div class="modal-body">
+            <form id="postUser" action="{{ url('/user') }}" method="POST"> {{ csrf_field() }}
+              <div class="form-group">
+                <label for="name" class="control-label">Usuário:</label>
+                <input type="text" class="form-control" name="name" id="name">
+              </div>
+              <div class="form-group">
+                <label for="email" class="control-label">Email:</label>
+                <input type="text" class="form-control" name="email" id="email">
+              </div>
+              <div class="form-group">
+                <label for="user_rle_id" class="control-label">Permissão:</label>
+                <select id="role-form-user" class="form-control" name="user_rle_id">
+                  <option selected disabled>Selecione uma permissão</option>
+                  @foreach($roles as $role)
+                    <option id="userRoleOption{{ $role->rle_id }}" value="{{ $role->rle_id }}">{{ $role->rle_name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="password" class="control-label">Senha:</label>
+                <input type="password" class="form-control" name="password" id="password">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button id="btn-confirm-user" type="submit" class="btn btn-primary">Cadastrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
 
@@ -196,6 +231,7 @@
           </div>
       </div>
     </div>
+
     {{-- User Panel --}}
     <div id="user-panel" class="col-md-4">
       <div class="panel panel-default outer">
@@ -219,6 +255,7 @@
           </div>
       </div>
     </div>
+
   </div>
 
 @endsection
@@ -228,6 +265,8 @@
   <script type="text/javascript">
 
   $(document).ready(function(){
+    // Global var token
+    var token = $("meta[name=csrf-token]").attr("content");
 
     $("#btn-add-loan").on("click", function()
     {
@@ -241,6 +280,10 @@
       $("#add-book").modal("toggle");
     });
 
+    $("#btn-add-user").on("click", function(){
+      $("#add-user").modal("toggle");
+    });
+
     $("#btn-confirm-loan").on("click", function(e)
     {
       e.preventDefault();
@@ -249,7 +292,6 @@
       var book = $("#loan-form-book").val();
       var userName = $('#loanUserOption'+user).text();
       var bookName = $('#loanBookOption'+book).text();
-      var token = $("meta[name=csrf-token]").attr("content");
 
       $.ajax({
         url : "/loan",
@@ -307,6 +349,30 @@
       });
     });
 
+    $("#btn-confirm-user").on("click", function(e)
+    {
+      e.preventDefault();
+
+      var data = $("#postUser").serialize();
+      var user = $("#role-form-user").val();
+      var userName = $("#userRoleOption"+user).text();
+
+      $.ajax({
+        url : "/user",
+        method : "POST",
+        data : {
+          _token : token,
+          data : data
+        },
+        success: function(response){
+          $("#add-user").modal("toggle");
+          console.log(response);
+        },
+        error: function(response){
+          console.log(response);
+        }
+      });
+    });
 
   });
 
