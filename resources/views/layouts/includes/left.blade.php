@@ -5,7 +5,9 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li><a href="#"><i class="fa fa-cogs"></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fa fa-user"></i> <span>Usuários</span></a></li>
             <li><a href="#"><i class="fa fa-book"></i> <span>Livros</span></a></li>
+            <li><a href="#"><i class="fa fa-exchange"></i> <span>Empréstimos</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

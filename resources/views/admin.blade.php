@@ -28,7 +28,14 @@
 
     <header class="main-header">
 
-        <a class="logo navbar-brand" href="{{url('/')}}">Livros</a>
+        {{-- <a class="logo  navbar-brand" href="{{url('/')}}"> DTE - Livros</a> --}}
+
+        <a href="{{url('/')}}" class="logo navbar-brand">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>LT</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
 
         <nav class="navbar navbar-static-top">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -37,7 +44,7 @@
             <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
                 <ul class="nav navbar-nav">
                     @if(Auth::check())
-                        <li><a>Olá, {{Auth::user()->name}}</a></li>
+                        <li><a><i class="fa fa-user-circle-o"></i> Olá, {{Auth::user()->name}}</a></li>
                         <li>
                             <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 <i class="fa fa-unlock-alt"></i> Sair do sistema</a>

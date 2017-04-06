@@ -238,7 +238,7 @@
           <div class="panel-heading">
               <h3 class="panel-title"><b>Usuários</b></h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body userList">
             @foreach ($users as $user)
               <div class="panel panel-default inner">
                 <div class="panel-body">
@@ -265,8 +265,6 @@
   <script type="text/javascript">
 
   $(document).ready(function(){
-    // Global var token
-    var token = $("meta[name=csrf-token]").attr("content");
 
     $("#btn-add-loan").on("click", function()
     {
@@ -287,6 +285,8 @@
     $("#btn-confirm-loan").on("click", function(e)
     {
       e.preventDefault();
+
+      var token = $("meta[name=csrf-token]").attr("content");
 
       var user = $("#loan-form-user").val();
       var book = $("#loan-form-book").val();
@@ -353,20 +353,38 @@
     {
       e.preventDefault();
 
-      var data = $("#postUser").serialize();
+      // var data = $("#postUser").serialize();
+
+      var name = $("#name").val();
+      var email = $("#email").val();;
+      var user_rle_id = $("#user_rle_id").val();
+      var password = $("#password").val();
+
       var user = $("#role-form-user").val();
       var userName = $("#userRoleOption"+user).text();
+      var token = $("meta[name=csrf-token]").attr("content");
 
       $.ajax({
         url : "/user",
         method : "POST",
         data : {
           _token : token,
-          data : data
+          name : name,
+          email : email,
+          user_rle_id : user,
+          password : password
         },
-        success: function(response){
+        success: function(data){
           $("#add-user").modal("toggle");
-          console.log(response);
+          var newUser = '<div class="panel panel-default inner">' +
+                          '<div class="panel-body">' +
+                                name +
+                          '</div>' +
+                          '<div class="panel-footer">' +
+                            '<p>' + email +'</p>' +
+                          '</div>' +
+                        '</div>';
+          $('.userList').append(newUser);
         },
         error: function(response){
           console.log(response);
