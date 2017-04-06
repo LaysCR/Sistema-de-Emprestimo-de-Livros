@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -15,7 +15,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        $roles = Role::all();
+
+        return view('admin.user', [
+          'users' => $users,
+          'roles' => $roles
+        ]);
     }
 
     /**
@@ -42,7 +48,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->user_rle_id = $request->user_rle_id;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
 
         $user->save();
 

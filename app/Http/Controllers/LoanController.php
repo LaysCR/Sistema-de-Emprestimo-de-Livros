@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\User;
+use App\Models\Book;
 use App\Models\Loan;
 
 class LoanController extends Controller
@@ -15,7 +17,15 @@ class LoanController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        $books = Book::all();
+        $loans = Loan::all();
+
+        return view('admin.loan', [
+          'users' => $users,
+          'books' => $books,
+          'loans' => $loans
+        ]);
     }
 
     /**

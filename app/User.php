@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function role()
     {
-      return $this->hasOne(Role::class, 'user_rle_id', 'id');
+      return $this->hasOne(Role::class, 'rle_id', 'user_rle_id');
     }
 
     public function loan()

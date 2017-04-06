@@ -26,39 +26,7 @@
 
 <div class="wrapper">
 
-    <header class="main-header">
-
-        {{-- <a class="logo  navbar-brand" href="{{url('/')}}"> DTE - Livros</a> --}}
-
-        <a href="{{url('/')}}" class="logo navbar-brand">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
-        </a>
-
-        <nav class="navbar navbar-static-top">
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-            </a>
-            <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    @if(Auth::check())
-                        <li><a><i class="fa fa-user-circle-o"></i> Olá, {{Auth::user()->name}}</a></li>
-                        <li>
-                            <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <i class="fa fa-unlock-alt"></i> Sair do sistema</a>
-                            </a>
-                            <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
-                                <input name="_token" value="{{csrf_token()}}" type="hidden">
-                            </form>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </nav>
-
-    </header>
+    @include('layouts.includes.header')
 
     <!-- Left side column. contains the main navigation menu-->
     @include('layouts.includes.left')
@@ -67,7 +35,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
+          <h1>
                 @yield('title')
                 <small>@yield('subtitle')</small>
             </h1>
@@ -78,6 +46,7 @@
 
         <!-- Main content -->
         <section class="content">
+            {{-- @yield('content') --}}
             @yield('content')
         </section>
     </div><!-- /.content-wrapper -->

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Book;
 use App\Models\Publisher;
-use App\Models\Tag;
 
 class BookController extends Controller
 {
@@ -26,7 +25,7 @@ class BookController extends Controller
         $books = Book::all();
         $publishers = Publisher::pluck('pub_name', 'pub_id');
 
-        return view('books.index', ['books' => $books,
+        return view('admin.book', ['books' => $books,
                                     'publishers' => $publishers ]);
     }
 

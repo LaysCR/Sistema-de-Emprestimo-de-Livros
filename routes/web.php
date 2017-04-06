@@ -20,7 +20,7 @@ Route::delete('/{book}', 'BookController@destroy')->name('book.destroy');
 Route::post('/loan', 'LoanController@store')->name('loan.store');
 
 // Admin
-// Route::get('/admin', 'AdminController@index')->name('admin.index');
+// Route::get('/admin1', 'AdminController@index')->name('admin1.index');
 // User
 Route::post('/user', 'UserController@store')->name('user.store');
 
@@ -32,6 +32,6 @@ Route::post('/user', 'UserController@store')->name('user.store');
 // Route::get('/site', function () {
 //     return view('site');
 // });
-Route::get('/admin', function () {
-    return view('admin');
-});
+Route::get('/admin/user', 'UserController@index')->name('admin.user');
+Route::get('/admin/book', 'BookController@index')->name('admin.book');
+Route::get('/admin/loan', 'LoanController@index')->name('admin.loan');
