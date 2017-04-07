@@ -12,7 +12,6 @@
         </a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                @if(Auth::check())
                     <li><a><i class="fa fa-user-circle-o"></i> Olá, {{Auth::user()->name}}</a></li>
                     <li>
                         <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -22,7 +21,6 @@
                             <input name="_token" value="{{csrf_token()}}" type="hidden">
                         </form>
                     </li>
-                @endif
             </ul>
         </div>
     </nav>

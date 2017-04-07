@@ -24,7 +24,7 @@ class LoanController extends Controller
         return view('admin.loan', [
           'users' => $users,
           'books' => $books,
-          'loans' => $loans
+          'loans' => $loans,
         ]);
     }
 

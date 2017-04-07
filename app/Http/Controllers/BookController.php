@@ -23,10 +23,12 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $books = Book::all();
-        $publishers = Publisher::pluck('pub_name', 'pub_id');
+        $publishers = Publisher::all();
 
-        return view('admin.book', ['books' => $books,
-                                    'publishers' => $publishers ]);
+        return view('admin.book', [
+          'books' => $books,
+          'publishers' => $publishers
+        ]);
     }
 
     /**

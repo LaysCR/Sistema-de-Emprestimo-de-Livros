@@ -11,14 +11,6 @@ class Loan extends Model
     protected $table = "rbk_loans";
     protected $primaryKey = "ln_id";
 
-    // Check status
-    public function status()
-    {
-      if(){
-
-      }
-    }
-
     public function user()
     {
       return $this->belongsTo(User::class, 'ln_user_id', 'id');

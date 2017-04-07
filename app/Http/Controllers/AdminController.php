@@ -25,7 +25,7 @@ class AdminController extends Controller
         $publishers = Publisher::all();
         $roles = Role::all();
 
-        return view('admin.user', [
+        return view('admin.indexlixo', [
           'users' => $users,
           'books' => $books,
           'loans' => $loans,
