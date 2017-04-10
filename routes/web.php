@@ -14,7 +14,7 @@ Auth::routes();
 //Book
 Route::get('/', 'BookController@index')->name('book.index');
 Route::post('/book', 'BookController@store')->name('book.store');
-Route::delete('/{book}', 'BookController@destroy')->name('book.destroy');
+Route::delete('/book/{book}', 'BookController@destroy')->name('book.destroy');
 
 //Loan
 Route::post('/loan', 'LoanController@store')->name('loan.store');
