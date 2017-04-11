@@ -5,13 +5,13 @@
   Usuários
 @endsection
 
-@section('url')
-    user
-@endsection
-
 @section('subtitle')
   {{-- <p style="display:inline; margin-left:5px;"> Gerenciar</p> --}}
   Gerenciar
+@endsection
+
+@section('url')
+"/user/"
 @endsection
 
 @section('tableTitle')
@@ -114,6 +114,9 @@
           success: function(data){
             $("#modal-add").modal("toggle");
             var newUser = '<tr>' +
+                            '<td class="options hidden">'+
+                              '<input class="items" type="checkbox" value="'+ data.id +'">' +
+                            '</td>' +
                             '<td>' + name + '</td>' +
                             '<td>' + email + '</td>' +
                             '<td>' + rle + '</td>' +

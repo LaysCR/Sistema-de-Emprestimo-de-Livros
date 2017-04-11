@@ -105,8 +105,10 @@ class LoanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Loan $loan)
     {
-        //
+        $loan->delete();
+
+        return redirect('/admin/loan');
     }
 }

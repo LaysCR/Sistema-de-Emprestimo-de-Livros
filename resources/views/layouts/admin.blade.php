@@ -135,40 +135,42 @@
 <script src="{{ asset('/js/plugins.js')}}"></script>
 
 <script type="text/javascript">
-  $(document).ready(function(){
+  var token = $("meta[name=csrf-token]").attr("content");
 
-    var token = $("meta[name=csrf-token]").attr("content");
+  function onClickAdd(){
+    $("#modal-add").modal("toggle");
+  }
 
-    $("#add").on("click", function(){
-      $("#modal-add").modal("toggle");
-    });
+  function onClickOpenOptions(){
+    $(".options").toggleClass("hidden");
+  }
 
-    $("#open-options").on('click', function(){
-      $(".options").toggleClass("hidden");
-    });
-
-    $("#btn-delete").on("click", function(){
-      $(".items:checked").each(function(){
-        var row = $(this).closest('tr');
-        var id = $(this).val();
-        var url = @yield('url');
-        $.ajax({
-          url : url + id,
-          method : "POST",
-          data : {
-            _token : token,
-            _method : "DELETE",
-          },
-          success : function(data) {
-              row.remove();
-          },
-          error : function(response) {
-            console.log(response);
-          }
-        });
+  function onClickBtnDelete(){
+    $(".items:checked").each(function(){
+      var row = $(this).closest('tr');
+      var id = $(this).val();
+      var url = @yield('url');
+      $.ajax({
+        url : url + id,
+        method : "POST",
+        data : {
+          _token : token,
+          _method : "DELETE",
+        },
+        success : function(data) {
+            row.remove();
+        },
+        error : function(response) {
+          console.log(response);
+        }
       });
     });
+  }
 
+  $(document).ready(function(){
+    $("#add").on("click", onClickAdd);
+    $("#open-options").on('click', onClickOpenOptions)
+    $("#btn-delete").on("click", onClickBtnDelete);
 
   });
 </script>

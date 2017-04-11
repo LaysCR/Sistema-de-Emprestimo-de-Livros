@@ -10,6 +10,10 @@
   Gerenciar
 @endsection
 
+@section('url')
+"/loan/"
+@endsection
+
 @section('tableTitle')
   Empréstimo
 @endsection
@@ -38,15 +42,18 @@
 @endsection
 
 @section('thTable')
-  <th>Usuário</th>
-  <th>Livro</th>
-  <th>Data de empréstimo</th>
-  <th>Data de devolução</th>
-  <th>Situação</th>
+  @if(count($loans) > 0)
+    <th>Usuário</th>
+    <th>Livro</th>
+    <th>Data de empréstimo</th>
+    <th>Data de devolução</th>
+    <th>Situação</th>
+  @else
+    <p>Não foram encontrados resultados</p>
+  @endif
 @endsection
 
 @section('tableBody')
-  @if(count($loans)!=0)
     @foreach ($loans as $loan)
       <tr>
         <td class="options hidden">
@@ -65,11 +72,6 @@
         </td>
       </tr>
     @endforeach
-  @else
-    <tr>
-      <p>Nenhum empréstimo enconpado</p>
-    </tr>
-  @endif
 @endsection
 
 @section('col-md')
@@ -103,8 +105,10 @@
           success: function(data){
             $("#modal-add").modal("toggle");
             data = data[0];
-            console.log(data);
-            var newLoan =  '<tr>' +
+            var newLoan = '<tr>' +
+                            '<td class="options hidden">'+
+                              '<input class="items" type="checkbox" value="'+ data.ln_id +'">' +
+                            '</td>' +
                             '<td>' + userName + '</td>' +
                             '<td>' + bookName + '</td>' +
                             '<td>' + data.ln_date + '</td>' +
@@ -112,6 +116,7 @@
                             '<td style="text-align:center"><i class="fa fa-smile-o" style="color:green"></i></td>' +
                           '</tr>';
             $('.table-body').append(newLoan);
+            $("#btn-delete").on("click", onClickBtnDelete);
           },
           error: function(response){
             console.log(response);
