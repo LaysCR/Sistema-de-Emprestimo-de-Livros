@@ -107,9 +107,6 @@
             $("#modal-add").modal("toggle");
             data = data[0];
             var newBook = '<tr>' +
-                            '<td class="options hidden">'+
-                              '<input class="items" type="checkbox" value="'+ data.bk_id +'">' +
-                            '</td>' +
                             '<td>' + name + '</td>' +
                             '<td>' + author + '</td>' +
                             '<td>' + pubName + '</td>' +

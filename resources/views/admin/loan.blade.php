@@ -49,7 +49,7 @@
     <th>Data de devolução</th>
     <th>Situação</th>
   @else
-    <p>Não foram encontrados resultados</p>
+    <p id="p">Não foram encontrados resultados</p>
   @endif
 @endsection
 
@@ -115,7 +115,25 @@
                             '<td>' + data.ln_due_date + '</td>' +
                             '<td style="text-align:center"><i class="fa fa-smile-o" style="color:green"></i></td>' +
                           '</tr>';
-            $('.table-body').append(newLoan);
+            //Check items
+            if(checkTable($('#table').children('p'))){
+              $('#p').remove();
+              var thead = '<thead>' +
+                            '<tr>' +
+                              '<th class="options hidden"></th>' +
+                              '<th>Usuário</th>' +
+                              '<th>Livro</th>' +
+                              '<th>Data de empréstimo</th>' +
+                              '<th>Data de devolução</th>' +
+                              '<th>Situação</th>' +
+                              '</tr>' +
+                          '</thead>';
+              $('#table').append(thead);
+              $('#table').append('<tbody class="table-body">' + newLoan + '</tbody>');
+
+            } else {
+              $('.table-body').append(newLoan);
+            }
             $("#btn-delete").on("click", onClickBtnDelete);
           },
           error: function(response){

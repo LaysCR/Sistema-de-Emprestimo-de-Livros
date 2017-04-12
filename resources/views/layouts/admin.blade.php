@@ -92,7 +92,7 @@
                       <!-- /.box-header -->
                       <div class="box-body">
                         <div class="table-responsive">
-                          <table class="table no-margin">
+                          <table id="table"class="table no-margin">
                             <thead>
                             <tr>
                               <th class="options hidden"></th>
@@ -159,12 +159,27 @@
         },
         success : function(data) {
             row.remove();
+            if(checkTable($('#tableBody').children())){
+              $('#table').empty();
+              $('#table').append('<p id="p">Não foram encontrados resultados.</p>')
+            }
         },
         error : function(response) {
           console.log(response);
         }
       });
     });
+  }
+
+  //Check items
+  function checkTable(table)
+  {
+    if(typeof(table)!== 'undefined'){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   $(document).ready(function(){
