@@ -90,7 +90,7 @@
         var owner = $("#bk_owner").val();
         var description = $("#bk_description").val();
         var token = $("meta[name=csrf-token]").attr("content");
-        var pubName = $("bookPublisherOption"+publisher).text();
+        var pubName = $("#bookPublisherOption"+publisher).text();
 
         $.ajax({
           url : "/book",
@@ -107,13 +107,36 @@
             $("#modal-add").modal("toggle");
             data = data[0];
             var newBook = '<tr>' +
+                            '<td class="options hidden">' +
+                            '<input class="items" type="checkbox" value='+ data.bk_id +'>' +
+                            '</td>' +
                             '<td>' + name + '</td>' +
                             '<td>' + author + '</td>' +
                             '<td>' + pubName + '</td>' +
                             '<td>' + owner + '</td>' +
                             '<td>' + description + '</td>' +
                           '</tr>';
-            $('.table-body').append(newBook);
+                          //Check items
+                          if(isEmpty($('#table').children('tbody').children().length)){
+                            $('#p').remove();
+                            $('#table').empty();
+                            var thead = '<thead>' +
+                                          '<tr>' +
+                                          '<th class="options hidden"></th>' +
+                                          '<th>Nome</th>' +
+                                          '<th>Autor</th>' +
+                                          '<th>Editora</th>' +
+                                          '<th>Dono</th>' +
+                                          '<th>Descrição</th>' +
+                                          '</tr>' +
+                                        '</thead>';
+                            $('#table').append(thead);
+                            $('#table').append('<tbody class="table-body">' + newBook + '</tbody>');
+
+                          } else {
+                            $('.table-body').append(newBook);
+                          }
+                          $("#btn-delete").on("click", onClickBtnDelete);
           },
           error: function(response){
             console.log(response);

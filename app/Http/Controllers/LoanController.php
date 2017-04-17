@@ -53,8 +53,8 @@ class LoanController extends Controller
           $loan = new Loan();
           $loan->ln_user_id = $request->user;
           $loan->ln_bk_id = $request->book;
-          $loan->ln_date = $today->format('Y-m-d');
-          $loan->ln_due_date = $due->format('Y-m-d');
+          $loan->ln_date = $today;
+          $loan->ln_due_date = $due;
           $loan->ln_status = 'ok';
           $loan->save();
 

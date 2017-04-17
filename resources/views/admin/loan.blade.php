@@ -61,8 +61,8 @@
         </td>
         <td>{{ $loan->user->name }}</td>
         <td>{{ $loan->book->bk_name }}</td>
-        <td>{{ $loan->ln_date }}</td>
-        <td>{{ $loan->ln_due_date }}</td>
+        <td>{{ date('d/m/Y', strtotime($loan->ln_date)) }}</td>
+        <td>{{ date('d/m/Y', strtotime($loan->ln_due_date)) }}</td>
         <td style="text-align:center">
           @if($loan->ln_status == 'ok')
             <i class="fa fa-smile-o" style="color:green"></i>
@@ -105,28 +105,37 @@
           success: function(data){
             $("#modal-add").modal("toggle");
             data = data[0];
+
+            var date = new Date();
+            var dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + 14); console.log(dueDate);
+
+            date = dateFormat(date);
+            dueDate = dateFormat(dueDate);
+
             var newLoan = '<tr>' +
                             '<td class="options hidden">'+
                               '<input class="items" type="checkbox" value="'+ data.ln_id +'">' +
                             '</td>' +
                             '<td>' + userName + '</td>' +
                             '<td>' + bookName + '</td>' +
-                            '<td>' + data.ln_date + '</td>' +
-                            '<td>' + data.ln_due_date + '</td>' +
+                            '<td>' + date + '</td>' +
+                            '<td>' + dueDate + '</td>' +
                             '<td style="text-align:center"><i class="fa fa-smile-o" style="color:green"></i></td>' +
                           '</tr>';
             //Check items
-            if(checkTable($('#table').children('p'))){
+            if(isEmpty($('#table').children('tbody').children().length)){
               $('#p').remove();
+              $('#table').empty();
               var thead = '<thead>' +
                             '<tr>' +
-                              '<th class="options hidden"></th>' +
-                              '<th>Usuário</th>' +
-                              '<th>Livro</th>' +
-                              '<th>Data de empréstimo</th>' +
-                              '<th>Data de devolução</th>' +
-                              '<th>Situação</th>' +
-                              '</tr>' +
+                            '<th class="options hidden"></th>' +
+                            '<th>Usuário</th>' +
+                            '<th>Livro</th>' +
+                            '<th>Data de empréstimo</th>' +
+                            '<th>Data de devolução</th>' +
+                            '<th>Situação</th>' +
+                            '</tr>' +
                           '</thead>';
               $('#table').append(thead);
               $('#table').append('<tbody class="table-body">' + newLoan + '</tbody>');

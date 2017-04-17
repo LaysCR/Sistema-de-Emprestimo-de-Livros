@@ -11,16 +11,19 @@
 |
 */
 Auth::routes();
+
 //Book
 Route::get('/', 'BookController@index')->name('book.index');
-// Route::post('/book', 'BookController@store')->name('book.store');
+Route::post('/book', 'BookController@store')->name('book.store');
 //Loan
 Route::post('/loan', 'LoanController@store')->name('loan.store');
+// User
+Route::post('/user', 'UserController@store')->name('user.store');
 
 // Admin
 Route::get('/admin1', 'AdminController@index')->name('admin1.index');
-// User
-Route::post('/user', 'UserController@store')->name('user.store');
+
+//User view
 Route::get('/book', 'UserViewController@index')->name('user.index');
 
 // INDEX

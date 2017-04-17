@@ -113,6 +113,7 @@
           },
           success: function(data){
             $("#modal-add").modal("toggle");
+            data = data[0];
             var newUser = '<tr>' +
                             '<td class="options hidden">'+
                               '<input class="items" type="checkbox" value="'+ data.id +'">' +
@@ -121,7 +122,26 @@
                             '<td>' + email + '</td>' +
                             '<td>' + rle + '</td>' +
                           '</tr>';
-            $('.table-body').append(newUser);
+
+                          //Check items
+                          if(isEmpty($('#table').children('tbody').children().length)){
+                            $('#p').remove();
+                            $('#table').empty();
+                            var thead = '<thead>' +
+                                          '<tr>' +
+                                          '<th class="options hidden"></th>' +
+                                          '<th>Nome</th>' +
+                                          '<th>Email</th>' +
+                                          '<th>Privilégio</th>' +
+                                          '</tr>' +
+                                        '</thead>';
+                                        $('#table').append(thead);
+                            $('#table').append('<tbody class="table-body">' + newUser + '</tbody>');
+
+                          } else {
+                            $('.table-body').append(newUser);
+                          }
+                          $("#btn-delete").on("click", onClickBtnDelete);
           },
           error: function(response){
             console.log(response);

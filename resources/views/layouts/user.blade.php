@@ -29,7 +29,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="../../index2.html" class="navbar-brand"><b>Admin</b>LTE</a>
+          <a href="#" class="navbar-brand">DTE - Livros</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -38,9 +38,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Meus Empréstimos</a></li>
             <li><a href="#">Link</a></li>
-            <li class="dropdown">
+            {{-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Action</a></li>
@@ -51,7 +51,7 @@
                 <li class="divider"></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li>
+            </li> --}}
           </ul>
 
         </div>
@@ -82,12 +82,58 @@
       <section class="content-header">
         <h1>
           Painel do usuário
-          <small>--</small>
+          <small>Livros</small>
         </h1>
       </section>
 
       <!-- Main content -->
       <section class="content">
+        @yield('col-md')
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">
+                  @yield('title')
+                </h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="table-responsive">
+                  <table id="table"class="table no-margin">
+                    <thead>
+                    <tr>
+                      <th class="options hidden"></th>
+                      @yield('thTable')
+                    </tr>
+                    </thead>
+                    <tbody class="table-body">
+                      @yield('tableBody')
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer clearfix">
+                <a class="btn btn-sm btn-primary btn-flat pull-right" id="add">
+                  Solicitar @yield('tableTitle')
+                  &ensp;<i class="fa fa-plus"></i>
+                </a>
+                <a class="btn btn-sm btn-default btn-flat pull-left" id="open-options"><i class="fa fa-cogs"></i></a>
+                {{-- <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-edit"><i class="fa fa-pencil-square-o"></i></a> --}}
+                {{-- <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-delete"><i class="fa fa-trash"></i></a> --}}
+              </div>
+              <!-- /.box-footer -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+        </div>
+      </section>
 
         <!-- /.box -->
       </section>

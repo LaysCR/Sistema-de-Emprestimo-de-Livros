@@ -137,7 +137,28 @@
 <script type="text/javascript">
   var token = $("meta[name=csrf-token]").attr("content");
 
+  function dateFormat(date){
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    day = day.toString();
+    if(day.length == 1){
+      day = '0' + day;
+    }
+
+    month = month.toString();
+    if(month.length == 1){
+      month = '0' + month;
+    }
+
+    var fullDate = day + '/' + month + '/' + year;
+
+    return fullDate;
+  }
+
   function onClickAdd(){
+    $(".options").addClass("hidden");
     $("#modal-add").modal("toggle");
   }
 
@@ -159,9 +180,10 @@
         },
         success : function(data) {
             row.remove();
-            if(checkTable($('#tableBody').children())){
+            var empty = isEmpty($('#table').children('tbody').children().length);
+            if(empty){
               $('#table').empty();
-              $('#table').append('<p id="p">Não foram encontrados resultados.</p>')
+              $('#table').append('<p id="p">Não foram encontrados resultados.</p>');
             }
         },
         error : function(response) {
@@ -172,9 +194,9 @@
   }
 
   //Check items
-  function checkTable(table)
+  function isEmpty(tableLength)
   {
-    if(typeof(table)!== 'undefined'){
+    if(tableLength == 0){
       return true;
     }
     else {
