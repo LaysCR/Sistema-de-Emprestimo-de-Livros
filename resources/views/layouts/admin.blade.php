@@ -92,10 +92,12 @@
                       <!-- /.box-header -->
                       <div class="box-body">
                         <div class="table-responsive">
-                          <table id="table"class="table no-margin">
+                          <table id="table" class="table no-margin">
                             <thead>
                             <tr>
-                              <th class="options hidden"></th>
+                              <th class="options hidden">
+                                <input id="check-all" type="checkbox">
+                              </th>
                               @yield('thTable')
                             </tr>
                             </thead>
@@ -137,6 +139,10 @@
 <script type="text/javascript">
   var token = $("meta[name=csrf-token]").attr("content");
 
+  function checkAll(){
+    $(".items").prop('checked', this.checked);
+  }
+
   function dateFormat(date){
     var day = date.getDate();
     var month = date.getMonth() + 1;
@@ -169,6 +175,7 @@
   function onClickBtnDelete(){
     $(".items:checked").each(function(){
       var row = $(this).closest('tr');
+      var bookId = row.children('td:first-child').children('input:nth-child(2)').val();
       var id = $(this).val();
       var url = @yield('url');
       $.ajax({
@@ -180,6 +187,7 @@
         },
         success : function(data) {
             row.remove();
+            $('#loanBookOption' + bookId).removeClass('hidden');
             var empty = isEmpty($('#table').children('tbody').children().length);
             if(empty){
               $('#table').empty();
@@ -208,6 +216,7 @@
     $("#add").on("click", onClickAdd);
     $("#open-options").on('click', onClickOpenOptions)
     $("#btn-delete").on("click", onClickBtnDelete);
+    $("#check-all").on("click", checkAll);
 
   });
 </script>

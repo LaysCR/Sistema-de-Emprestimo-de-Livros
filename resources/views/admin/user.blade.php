@@ -129,6 +129,9 @@
                             $('#table').empty();
                             var thead = '<thead>' +
                                           '<tr>' +
+                                          '<th class="hidden">' +
+                                            '<input id="check-all" type="checkbox">' +
+                                          '</th>' +
                                           '<th class="options hidden"></th>' +
                                           '<th>Nome</th>' +
                                           '<th>Email</th>' +

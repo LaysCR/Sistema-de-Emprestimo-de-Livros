@@ -18,13 +18,28 @@ class LoanController extends Controller
     public function index()
     {
         $users = User::all();
-        $books = Book::all();
-        $loans = Loan::all();
+        $books = Book::where('bk_availability', true)->get();
+        $loans = Loan::orderBy("ln_due_date")->get();
+
+        $today = new \DateTime();
+
+        foreach ($loans as $loan) {
+          $dueDate = new \DateTime($loan->ln_due_date);
+          $dateDiff = date_diff($dueDate, $today);
+          if ($dateDiff->d > 0 && $dateDiff->invert == 1) {
+              $loan->ln_status = 0; // Em dia
+          } else if($dateDiff->d == 0) {
+              $loan->ln_status = 1; //Vence hoje
+          } else if($dateDiff->d > 0 && $dateDiff->invert == 0) {
+              $loan->ln_status = 2; //Vencido
+          }
+          $loan->save();
+        }
 
         return view('admin.loan', [
           'users' => $users,
           'books' => $books,
-          'loans' => $loans,
+          'loans' => $loans
         ]);
     }
 
@@ -50,12 +65,20 @@ class LoanController extends Controller
         $due = new \DateTime();
         $due->add(new \DateInterval("P14D"));
         try{
+          //New loan
           $loan = new Loan();
           $loan->ln_user_id = $request->user;
           $loan->ln_bk_id = $request->book;
           $loan->ln_date = $today;
           $loan->ln_due_date = $due;
-          $loan->ln_status = 'ok';
+          $loan->ln_status = 0;
+
+          //Book status
+          $book = Book::findOrFail($request->book);
+          $book->bk_availability = false;
+
+          //Save
+          $book->save();
           $loan->save();
 
           return new JsonResponse([$loan, 200]);
@@ -107,8 +130,17 @@ class LoanController extends Controller
      */
     public function destroy(Loan $loan)
     {
-        $loan->delete();
 
-        return redirect('/admin/loan');
+      //Book status
+      $book = Book::findOrFail($loan->ln_bk_id);
+      $book->bk_availability = true;
+
+      //Save
+      $book->save();
+
+      //Delete
+      $loan->delete();
+
+      return redirect('/admin/loan');
     }
 }

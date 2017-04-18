@@ -65,6 +65,7 @@ class BookController extends Controller
           $book->bk_author = $request->bk_author;
           $book->bk_owner = $request->bk_owner;
           $book->bk_description = $request->bk_description;
+          $book->bk_availability = true;
           $book->bk_pub_id = $request->bk_pub_id;
 
           $book->save();

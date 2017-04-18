@@ -58,16 +58,19 @@
       <tr>
         <td class="options hidden">
           <input class="items" type="checkbox" value="{{ $loan->ln_id }}">
+          <input type="hidden" name="ln_bk_id" value="{{ $loan->ln_bk_id }}">
         </td>
         <td>{{ $loan->user->name }}</td>
         <td>{{ $loan->book->bk_name }}</td>
         <td>{{ date('d/m/Y', strtotime($loan->ln_date)) }}</td>
         <td>{{ date('d/m/Y', strtotime($loan->ln_due_date)) }}</td>
         <td style="text-align:center">
-          @if($loan->ln_status == 'ok')
-            <i class="fa fa-smile-o" style="color:green"></i>
-          @else
-            <i class="fa fa-frown-o" style="color:red"></i>
+          @if($loan->ln_status == 0)
+            <i class="fa fa-smile-o" style="color:green; font-size:22px"></i>
+          @elseif ($loan->ln_status == 1)
+            <i class="fa fa-meh-o" style="color:orange; font-size:22px"></i>
+          @elseif ($loan->ln_status == 2)
+            <i class="fa fa-frown-o" style="color:red; font-size:22px"></i>
           @endif
         </td>
       </tr>
@@ -104,6 +107,7 @@
           },
           success: function(data){
             $("#modal-add").modal("toggle");
+            $('#loanBookOption'+book).addClass('hidden');
             data = data[0];
 
             var date = new Date();
@@ -116,12 +120,13 @@
             var newLoan = '<tr>' +
                             '<td class="options hidden">'+
                               '<input class="items" type="checkbox" value="'+ data.ln_id +'">' +
+                              '<input type="hidden" name="ln_bk_id" value="'+ book +'">' +
                             '</td>' +
                             '<td>' + userName + '</td>' +
                             '<td>' + bookName + '</td>' +
                             '<td>' + date + '</td>' +
                             '<td>' + dueDate + '</td>' +
-                            '<td style="text-align:center"><i class="fa fa-smile-o" style="color:green"></i></td>' +
+                            '<td style="text-align:center"><i class="fa fa-smile-o" style="color:green; font-size:22px"></i></td>' +
                           '</tr>';
             //Check items
             if(isEmpty($('#table').children('tbody').children().length)){
@@ -129,6 +134,9 @@
               $('#table').empty();
               var thead = '<thead>' +
                             '<tr>' +
+                            '<th class="hidden">' +
+                              '<input id="check-all" type="checkbox">' +
+                            '</th>' +
                             '<th class="options hidden"></th>' +
                             '<th>Usuário</th>' +
                             '<th>Livro</th>' +

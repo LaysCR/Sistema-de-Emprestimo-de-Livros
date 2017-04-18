@@ -19,7 +19,7 @@ class CreateLoansTable extends Migration
           $table->integer('ln_bk_id')->unsigned();
           $table->date('ln_date');
           $table->date('ln_due_date');
-          $table->string('ln_status');
+          $table->integer('ln_status');
           $table->timestamps();
 
           $table->foreign('ln_user_id')->references('id')->on('users');

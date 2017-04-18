@@ -19,6 +19,7 @@ class CreateBooksTable extends Migration
           $table->string('bk_author');
           $table->string('bk_owner');
           $table->text('bk_description');
+          $table->boolean('bk_availability');
           $table->integer('bk_pub_id')->unsigned();
           $table->timestamps();
 

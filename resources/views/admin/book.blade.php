@@ -47,15 +47,19 @@
 @endsection
 
 @section('thTable')
-  <th>Nome</th>
-  <th>Autor</th>
-  <th>Editora</th>
-  <th>Dono</th>
-  <th>Descrição</th>
+  @if(count($books) > 0)
+    <th>Nome</th>
+    <th>Autor</th>
+    <th>Editora</th>
+    <th>Dono</th>
+    <th>Descrição</th>
+    <th>Status</th>
+  @else
+    <p id="p">Não foram encontrados resultados</p>
+  @endif
 @endsection
 
 @section('tableBody')
-  @if(count($books)!=0)
   @foreach ($books as $book)
     <tr>
       <td class="options hidden">
@@ -66,11 +70,15 @@
       <td>{{ $book->publisher->pub_name }}</td>
       <td>{{ $book->bk_owner }}</td>
       <td>{{ $book->bk_description }}</td>
+      <td>
+        @if ($book->bk_availability == true)
+          <span style="color:green">Disponível</span>
+        @else
+          <span style="color:red">Indisponível</span>
+        @endif
+      </td>
     </tr>
   @endforeach
-  @else
-    <tr>Nenhum livro encontrado</tr>
-  @endif
 @endsection
 
 @section('col-md')
@@ -108,7 +116,7 @@
             data = data[0];
             var newBook = '<tr>' +
                             '<td class="options hidden">' +
-                            '<input class="items" type="checkbox" value='+ data.bk_id +'>' +
+                              '<input class="items" type="checkbox" value='+ data.bk_id +'>' +
                             '</td>' +
                             '<td>' + name + '</td>' +
                             '<td>' + author + '</td>' +
@@ -122,6 +130,9 @@
                             $('#table').empty();
                             var thead = '<thead>' +
                                           '<tr>' +
+                                          '<th class="hidden">' +
+                                            '<input id="check-all" type="checkbox">' +
+                                          '</th>' +
                                           '<th class="options hidden"></th>' +
                                           '<th>Nome</th>' +
                                           '<th>Autor</th>' +
