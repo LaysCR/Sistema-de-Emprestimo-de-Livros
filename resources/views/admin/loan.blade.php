@@ -47,7 +47,7 @@
     <th>Livro</th>
     <th>Data de empréstimo</th>
     <th>Data de devolução</th>
-    <th>Situação</th>
+    <th style="text-align:center">Situação</th>
   @else
     <p id="p">Não foram encontrados resultados</p>
   @endif
@@ -78,7 +78,7 @@
 @endsection
 
 @section('col-md')
-  <div class="col-md-8">
+  <div class="col-md-6">
 @endsection
 
 @section('scripts')
@@ -134,15 +134,14 @@
               $('#table').empty();
               var thead = '<thead>' +
                             '<tr>' +
-                            '<th class="hidden">' +
+                            '<th class="options hidden">' +
                               '<input id="check-all" type="checkbox">' +
                             '</th>' +
-                            '<th class="options hidden"></th>' +
                             '<th>Usuário</th>' +
                             '<th>Livro</th>' +
                             '<th>Data de empréstimo</th>' +
                             '<th>Data de devolução</th>' +
-                            '<th>Situação</th>' +
+                            '<th style="text-align:center">Situação</th>' +
                             '</tr>' +
                           '</thead>';
               $('#table').append(thead);
@@ -152,6 +151,7 @@
               $('.table-body').append(newLoan);
             }
             $("#btn-delete").on("click", onClickBtnDelete);
+            $('#check-all').on("click", checkAll);
           },
           error: function(response){
             console.log(response);

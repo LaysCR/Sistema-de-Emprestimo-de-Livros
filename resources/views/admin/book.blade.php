@@ -87,6 +87,7 @@
 
 @section('scripts')
   <script type="text/javascript">
+
     $(document).ready(function(){
 
       $("#btn-confirm").on("click", function(e){
@@ -123,6 +124,7 @@
                             '<td>' + pubName + '</td>' +
                             '<td>' + owner + '</td>' +
                             '<td>' + description + '</td>' +
+                            '<td style="color:green">Disponível</td>'
                           '</tr>';
                           //Check items
                           if(isEmpty($('#table').children('tbody').children().length)){
@@ -130,15 +132,15 @@
                             $('#table').empty();
                             var thead = '<thead>' +
                                           '<tr>' +
-                                          '<th class="hidden">' +
+                                          '<th class="options hidden">' +
                                             '<input id="check-all" type="checkbox">' +
                                           '</th>' +
-                                          '<th class="options hidden"></th>' +
                                           '<th>Nome</th>' +
                                           '<th>Autor</th>' +
                                           '<th>Editora</th>' +
                                           '<th>Dono</th>' +
                                           '<th>Descrição</th>' +
+                                          '<th>Status</th>'
                                           '</tr>' +
                                         '</thead>';
                             $('#table').append(thead);
@@ -148,6 +150,7 @@
                             $('.table-body').append(newBook);
                           }
                           $("#btn-delete").on("click", onClickBtnDelete);
+                          $("#check-all").on("click", checkAll);
           },
           error: function(response){
             console.log(response);

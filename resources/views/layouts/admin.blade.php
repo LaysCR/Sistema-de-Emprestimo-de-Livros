@@ -64,7 +64,7 @@
                   </h4>
                 </div>
                 <div class="modal-body">
-                  <form id="modal-form">
+                  <form id="modal-form" autocomplete="off">
                     @yield('modalForm')
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -76,50 +76,91 @@
             </div>
           </div>
 
-          <!-- Table -->
-                @yield('col-md')
-                    <div class="box box-primary">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">
-                          @yield('title')
-                        </h3>
+          <div class="row">
+            <!-- Loan's Table -->
+              @yield('col-md')
+                <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">
+                      @yield('title')
+                    </h3>
 
-                        <div class="box-tools pull-right">
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <!-- /.box-header -->
-                      <div class="box-body">
-                        <div class="table-responsive">
-                          <table id="table" class="table no-margin">
-                            <thead>
-                            <tr>
-                              <th class="options hidden">
-                                <input id="check-all" type="checkbox">
-                              </th>
-                              @yield('thTable')
-                            </tr>
-                            </thead>
-                            <tbody class="table-body">
-                              @yield('tableBody')
-                            </tbody>
-                          </table>
-                        </div>
-                        <!-- /.table-responsive -->
-                      </div>
-                      <!-- /.box-body -->
-                      <div class="box-footer clearfix">
-                        <a class="btn btn-sm btn-primary btn-flat pull-right" id="add">
-                          Adicionar @yield('tableTitle')
-                          &ensp;<i class="fa fa-plus"></i>
-                        </a>
-                        <a class="btn btn-sm btn-default btn-flat pull-left" id="open-options"><i class="fa fa-cogs"></i></a>
-                        <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-edit"><i class="fa fa-pencil-square-o"></i></a>
-                        <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-delete"><i class="fa fa-trash"></i></a>
-                      </div>
-                      <!-- /.box-footer -->
-                    </div>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table id="table" class="table no-margin">
+                      <thead>
+                        <tr>
+                         <th class="options hidden">
+                          <input id="check-all" type="checkbox">
+                         </th>
+                         @yield('thTable')
+                        </tr>
+                      </thead>
+                      <tbody class="table-body">
+                        @yield('tableBody')
+                      </tbody>
+                    </table>
+                  </div>
+                <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                  <a class="btn btn-sm btn-primary btn-flat pull-right" id="add">
+                   Adicionar @yield('tableTitle')
+                   &ensp;<i class="fa fa-plus"></i>
+                  </a>
+                  <a class="btn btn-sm btn-default btn-flat pull-left" id="open-options"><i class="fa fa-cogs"></i></a>
+                  <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-edit"><i class="fa fa-pencil-square-o"></i></a>
+                  <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-delete"><i class="fa fa-trash"></i></a>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+
+              {{-- <!-- Notification's Table -->
+              @yield('col-md')
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">
+                    @yield('titleNotification')
+                  </h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+               <div class="table-responsive">
+                <table id="table" class="table no-margin">
+                  <thead>
+                    <tr>
+                     <th class="options hidden">
+                      <input id="check-all" type="checkbox">
+                     </th>
+                      @yield('thTableNotification')
+                    </tr>
+                   </thead>
+                   <tbody class="table-body">
+                    @yield('tableBodyNotification')
+                   </tbody>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer clearfix">
+              </div>
+              <!-- /.box-footer -->
+            </div>
+          </div> --}}
+                    {{--  --}}
                     <!-- /.box -->
                   </div>
                   <!-- /.col -->
@@ -138,6 +179,10 @@
 
 <script type="text/javascript">
   var token = $("meta[name=csrf-token]").attr("content");
+
+  function clearModal(){
+    $(this).find("input,textarea,select").val('').end();
+  }
 
   function checkAll(){
     $(".items").prop('checked', this.checked);
@@ -217,7 +262,7 @@
     $("#open-options").on('click', onClickOpenOptions)
     $("#btn-delete").on("click", onClickBtnDelete);
     $("#check-all").on("click", checkAll);
-
+    $("#modal-add").on('hidden.bs.modal', clearModal);
   });
 </script>
 

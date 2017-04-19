@@ -24,7 +24,7 @@ Route::post('/user', 'UserController@store')->name('user.store');
 Route::get('/admin1', 'AdminController@index')->name('admin1.index');
 
 //User view
-Route::get('/book', 'UserViewController@index')->name('user.index');
+Route::get('/index', 'UserViewController@index')->name('user.index');
 
 // INDEX
 Route::get('/admin/user', 'UserController@index')->name('admin.user');

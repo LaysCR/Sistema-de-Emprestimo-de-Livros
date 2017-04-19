@@ -1,17 +1,21 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Top Navigation</title>
+  <title>
+    @yield('title')
+  </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/adminlte.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/plugins.css') }}" />
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="
+  crossorigin="anonymous"></script>
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,20 +42,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
+            <li><a href="../index">Livros</a></li>
             <li><a href="#">Meus Empréstimos</a></li>
-            <li><a href="#">Link</a></li>
-            {{-- <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li> --}}
           </ul>
 
         </div>
@@ -106,7 +98,6 @@
                   <table id="table"class="table no-margin">
                     <thead>
                     <tr>
-                      <th class="options hidden"></th>
                       @yield('thTable')
                     </tr>
                     </thead>
@@ -119,13 +110,10 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer clearfix">
-                <a class="btn btn-sm btn-primary btn-flat pull-right" id="add">
+                <a class="btn btn-sm btn-primary btn-flat pull-right" id="request">
                   Solicitar @yield('tableTitle')
                   &ensp;<i class="fa fa-plus"></i>
                 </a>
-                <a class="btn btn-sm btn-default btn-flat pull-left" id="open-options"><i class="fa fa-cogs"></i></a>
-                {{-- <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-edit"><i class="fa fa-pencil-square-o"></i></a> --}}
-                {{-- <a class="btn btn-sm btn-default btn-flat pull-left options hidden" id="btn-delete"><i class="fa fa-trash"></i></a> --}}
               </div>
               <!-- /.box-footer -->
             </div>
@@ -166,5 +154,8 @@
 <script src="../../dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+
+@yield('script')
+
 </body>
 </html>

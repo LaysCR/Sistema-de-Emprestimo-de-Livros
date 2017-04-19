@@ -53,7 +53,11 @@
   @foreach ($users as $user)
     <tr>
       <td class="options hidden">
-        <input class="items" type="checkbox" value="{{ $user->id }}">
+        @if ($user->user_rle_id == 1)
+          <input class="items" type="checkbox" value="{{ $user->id }}">
+        @else
+          <input class="items" type="checkbox" value="{{ $user->id }}" disabled>
+        @endif
       </td>
       <td>{{ $user->name }}</td>
       <td>{{ $user->email }}</td>
@@ -129,10 +133,9 @@
                             $('#table').empty();
                             var thead = '<thead>' +
                                           '<tr>' +
-                                          '<th class="hidden">' +
+                                          '<th class="options hidden">' +
                                             '<input id="check-all" type="checkbox">' +
                                           '</th>' +
-                                          '<th class="options hidden"></th>' +
                                           '<th>Nome</th>' +
                                           '<th>Email</th>' +
                                           '<th>Privilégio</th>' +
@@ -145,6 +148,7 @@
                             $('.table-body').append(newUser);
                           }
                           $("#btn-delete").on("click", onClickBtnDelete);
+                          $("#check-all").on("click", checkAll);
           },
           error: function(response){
             console.log(response);

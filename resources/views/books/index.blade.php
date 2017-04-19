@@ -18,21 +18,23 @@
 
         <tbody>
           @foreach ($books as $book)
-          <tr>
-            <td>{{ $book->bk_name }}</td>
-            <td>{{ $book->bk_author }}</td>
-            <td>{{ $book->publisher->pub_name }}</td>
-            <td>{{ $book->bk_owner }}</td>
-            <td>{{ $book->bk_description }}</td>
-            <td value="{{ $book->bk_id }}" style="padding-top:20px">
-              <div class="col-md-6" style="margin-left:-15px">
-                <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
-              </div>
-              <div class="col-md-6" style="margin-left:5px">
-                <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
-              </div>
-            </td>
-          </tr>
+            @if($book->bk_availability == true)
+              <tr>
+                <td>{{ $book->bk_name }}</td>
+                <td>{{ $book->bk_author }}</td>
+                <td>{{ $book->publisher->pub_name }}</td>
+                <td>{{ $book->bk_owner }}</td>
+                <td>{{ $book->bk_description }}</td>
+                <td value="{{ $book->bk_id }}" style="padding-top:20px">
+                  <div class="col-md-6" style="margin-left:-15px">
+                    <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+                  </div>
+                  <div class="col-md-6" style="margin-left:5px">
+                    <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+            @endif
           @endforeach
         </tbody>
       </table>

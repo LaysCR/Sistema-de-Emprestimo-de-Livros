@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Book;
 use App\Models\Role;
 use App\Models\Loan;
+use App\Models\Notification;
 
 class User extends Authenticatable
 {
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function loan()
     {
       return $this->hasMany(Loan::class);
+    }
+
+    public function notification()
+    {
+      return $this->hasMany(Notification::class);
     }
 }
