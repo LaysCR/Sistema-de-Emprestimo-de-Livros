@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\User;
+use App\Models\Book;
 use App\Models\Notification;
 
 class NotificationController extends Controller
@@ -17,12 +18,12 @@ class NotificationController extends Controller
     public function index()
     {
 
-      $user = User::all();
-      $notification = Notification::all();
+      $users = User::all();
+      $notifications = Notification::all();
 
       return view('admin.loan', [
         'users' => $users,
-        'notification' => $notification
+        'notifications' => $notifications
       ]);
     }
 
@@ -44,7 +45,27 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+      try{
+          $notification = new Notification();
+          $notification->user_id = $request->user;
+          $notification->book_id = $request->book;
+          $notification->type = 'request';
+          $notification->read = false;
+
+          $book = Book::findOrFail($request->book);
+          $book->bk_availability = false;
+
+          $notification->save();
+          $book->save();
+
+
+          return new JsonResponse([$notification, 200]);
+
+        } catch(\Exception $e){
+          throw $e;
+        }
+
     }
 
     /**
@@ -87,8 +108,18 @@ class NotificationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Notification $notification)
     {
-        //
+      //Book status
+      $book = Book::findOrFail($notification->book_id);
+      $book->bk_availability = true;
+
+      //Save
+      $book->save();
+
+      //Delete
+      $notification->delete();
+
+      return redirect('/admin/loan');
     }
 }

@@ -19,9 +19,11 @@
     @foreach ($notifications as $notification)
       <tr>
         <td>{{ $notification->user->name }}</td>
-        <td>{{ $notification->data }}</td>
-        <td><button class="btn btn-success" type="button" name="accept"></button></td>
-        <td><button class="btn btn-danger" type="button" name="decline"></button></td>
+        <td>{{ $notification->book->bk_name }}</td>
+        <td>
+          <button class="btn btn-success" type="button" name="accept"></button>
+          <button class="btn btn-danger" type="button" name="decline"></button>
+        </td>
       </tr>
     @endforeach
 @endsection

@@ -19,7 +19,7 @@ class UserViewController extends Controller
     public function index()
     {
       $users = User::all();
-      $books = Book::all();
+      $books = Book::where('bk_availability', true)->get();
       $loans = Loan::all();
       $publishers = Publisher::all();
 

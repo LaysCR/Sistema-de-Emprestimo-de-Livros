@@ -95,7 +95,7 @@
               <!-- /.box-header -->
               <div class="box-body">
                 <div class="table-responsive">
-                  <table id="table"class="table no-margin">
+                  <table id="table" class="table no-margin">
                     <thead>
                     <tr>
                       @yield('thTable')
@@ -110,6 +110,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer clearfix">
+
                 <a class="btn btn-sm btn-primary btn-flat pull-right" id="request">
                   Solicitar @yield('tableTitle')
                   &ensp;<i class="fa fa-plus"></i>

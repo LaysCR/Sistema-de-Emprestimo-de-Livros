@@ -43,6 +43,9 @@
 @endsection
 
 @section('thTable')
+  <th class="options hidden">
+   <input id="check-all" type="checkbox">
+  </th>
   <th>Nome</th>
   <th>Email</th>
   <th>Privilégio</th>

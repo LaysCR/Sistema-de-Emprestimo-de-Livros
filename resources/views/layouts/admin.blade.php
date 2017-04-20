@@ -96,9 +96,6 @@
                     <table id="table" class="table no-margin">
                       <thead>
                         <tr>
-                         <th class="options hidden">
-                          <input id="check-all" type="checkbox">
-                         </th>
                          @yield('thTable')
                         </tr>
                       </thead>
@@ -121,50 +118,9 @@
                 </div>
                 <!-- /.box-footer -->
               </div>
-
-              {{-- <!-- Notification's Table -->
-              @yield('col-md')
-              <div class="box box-success">
-                <div class="box-header with-border">
-                  <h3 class="box-title">
-                    @yield('titleNotification')
-                  </h3>
-
-                <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-               <div class="table-responsive">
-                <table id="table" class="table no-margin">
-                  <thead>
-                    <tr>
-                     <th class="options hidden">
-                      <input id="check-all" type="checkbox">
-                     </th>
-                      @yield('thTableNotification')
-                    </tr>
-                   </thead>
-                   <tbody class="table-body">
-                    @yield('tableBodyNotification')
-                   </tbody>
-                  </table>
-                </div>
-                <!-- /.table-responsive -->
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer clearfix">
-              </div>
-              <!-- /.box-footer -->
             </div>
-          </div> --}}
-                    {{--  --}}
-                    <!-- /.box -->
-                  </div>
-                  <!-- /.col -->
-                </div>
+            @yield('requests')
+          </div>
         </section>
     </div><!-- /.content-wrapper -->
 

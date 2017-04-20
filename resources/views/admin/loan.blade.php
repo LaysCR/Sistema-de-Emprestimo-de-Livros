@@ -14,6 +14,10 @@
 "/loan/"
 @endsection
 
+@section('col-md')
+  <div class="col-md-6">
+@endsection
+
 @section('tableTitle')
   Empréstimo
 @endsection
@@ -43,6 +47,9 @@
 
 @section('thTable')
   @if(count($loans) > 0)
+    <th class="options hidden">
+      <input id="check-all" type="checkbox">
+    </th>
     <th>Usuário</th>
     <th>Livro</th>
     <th>Data de empréstimo</th>
@@ -77,8 +84,58 @@
     @endforeach
 @endsection
 
-@section('col-md')
+@section('requests')
+  <!-- Request Table -->
   <div class="col-md-6">
+
+    <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">
+          Solicitações de Empréstimo
+        </h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="table-responsive">
+        <table id="request-table" class="table no-margin">
+          <thead>
+            <tr>
+              @if(count($notifications) > 0)
+                <th>Usuário</th>
+                <th>Livro</th>
+                <th></th>
+              @else
+                <p id="p">Nenhum pedido pendente</p>
+              @endif
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            @foreach ($notifications as $notification)
+              <tr>
+                <td style="display:none">
+                  <input id="bookId" type="hidden" value="{{ $notification->id }}">
+                </td>
+                <td>{{ $notification->user->name }}</td>
+                <td>{{ $notification->book->bk_name }}</td>
+                <td>
+                  <button id="accept" class="btn btn-success" type="button" name="accept" style="margin-right:5px">Aceitar</button>
+                  <button id="decline-request" class="btn btn-danger" type="button" name="decline">Recusar </button>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    <!-- /.table-responsive -->
+    </div>
+    <!-- /.box-body -->
+  </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -157,6 +214,55 @@
             console.log(response);
           }
         });
+
+
+      });
+
+      $("#decline-request").on("click", function(){
+        var notificationId = $(this).closest('tr').children().children().val();
+        $.ajax({
+          url: '/declinerequest/' + notificationId,
+          method : 'post',
+          data: {
+            _token : token,
+            _method : 'delete',
+          },
+          success: function(data){
+            console.log('aishdiaushd');
+            var empty = isEmpty($('#table').children('tbody').children().length);
+            if(empty){
+              $('#request-table').empty();
+              $('#request-table').append('<p>Nenhum pedido pendente</p>');
+            }
+          },
+          error: function(data){
+            console.log('moises');
+          }
+        });
+      });
+
+      $("#accept-request").on("click", function(){
+        var notificationId = $(this).closest('tr').children().children().val();
+        $.ajax({
+          url: '/acceptrequest/' + notificationId,
+          method : 'post',
+          data: {
+            _token : token,
+            _method : 'delete',
+          },
+          success: function(data){
+            console.log('aishdiaushd');
+            var empty = isEmpty($('#table').children('tbody').children().length);
+            if(empty){
+              $('#request-table').empty();
+              $('#request-table').append('<p>Nenhum pedido pendente</p>');
+            }
+          },
+          error: function(data){
+            console.log('moises');
+          }
+        });
+
       });
 
     });

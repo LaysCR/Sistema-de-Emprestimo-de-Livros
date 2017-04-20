@@ -48,6 +48,9 @@
 
 @section('thTable')
   @if(count($books) > 0)
+    <th class="options hidden">
+     <input id="check-all" type="checkbox">
+    </th>
     <th>Nome</th>
     <th>Autor</th>
     <th>Editora</th>

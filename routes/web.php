@@ -35,3 +35,8 @@ Route::get('/admin/loan', 'LoanController@index')->name('admin.loan');
 Route::delete('/book/{book}', 'BookController@destroy')->name('book.destroy');
 Route::delete('/loan/{loan}', 'LoanController@destroy')->name('loan.destroy');
 Route::delete('/user/{user}', 'UserController@destroy')->name('user.destroy');
+
+//NOTIFICATIONS
+Route::post('/notification', 'NotificationController@store')->name('note.store');
+Route::delete('/declinerequest/{notification}', 'NotificationController@destroy')->name('note.destroy');
+Route::delete('/acceptrequest/{notification}', 'Noti')->name('accept.destroy');

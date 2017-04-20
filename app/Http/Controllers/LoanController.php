@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\User;
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\Notification;
 
 class LoanController extends Controller
 {
@@ -20,6 +21,7 @@ class LoanController extends Controller
         $users = User::all();
         $books = Book::where('bk_availability', true)->get();
         $loans = Loan::orderBy("ln_due_date")->get();
+        $notifications = Notification::all();
 
         $today = new \DateTime();
 
@@ -39,7 +41,8 @@ class LoanController extends Controller
         return view('admin.loan', [
           'users' => $users,
           'books' => $books,
-          'loans' => $loans
+          'loans' => $loans,
+          'notifications' => $notifications
         ]);
     }
 
