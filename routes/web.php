@@ -38,5 +38,5 @@ Route::delete('/user/{user}', 'UserController@destroy')->name('user.destroy');
 
 //NOTIFICATIONS
 Route::post('/notification', 'NotificationController@store')->name('note.store');
-Route::delete('/declinerequest/{notification}', 'NotificationController@destroy')->name('note.destroy');
-Route::delete('/acceptrequest/{notification}', 'Noti')->name('accept.destroy');
+Route::delete('/declinerequest/{notification}', 'NotificationController@declineRequest')->name('decline.destroy');
+Route::delete('/acceptrequest/{notification}', 'NotificationController@acceptRequest')->name('accept.destroy');

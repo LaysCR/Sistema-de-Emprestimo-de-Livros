@@ -2,7 +2,7 @@
 
 @section('titleNotification')
   {{-- <h3 style="display:inline; margin-left:10px">Usuários </h3> --}}
-  Notificaçoes
+  Notificações
 @endsection
 
 @section('thTableNotification')

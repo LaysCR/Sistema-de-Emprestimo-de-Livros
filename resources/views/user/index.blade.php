@@ -45,7 +45,7 @@
 
 @section('script')
   <script type="text/javascript">
-    var token = $("meta[name=csrf-token]").attr("content");
+  var token = $("meta[name=csrf-token]").attr("content");
 
     function isEmpty(tableLength)
     {
@@ -74,7 +74,7 @@
             },
             success: function (data){
               lastClickedRow.remove();
-              var empty = isEmpty($("tbody" ).children().length);
+              var empty = isEmpty($("tbody").children().length);
               if(empty){
                 $('#table').empty();
                 $('#table').append('<p>Nenhum livro disponível para empréstimo</p>');

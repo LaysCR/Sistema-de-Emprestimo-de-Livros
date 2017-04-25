@@ -120,10 +120,10 @@
                 <td style="display:none">
                   <input id="bookId" type="hidden" value="{{ $notification->id }}">
                 </td>
-                <td>{{ $notification->user->name }}</td>
-                <td>{{ $notification->book->bk_name }}</td>
+                <td id="notificationUser{{ $notification->user->id }}">{{ $notification->user->name }}</td>
+                <td id="notificationBook{{ $notification->book->bk_id }}">{{ $notification->book->bk_name }}</td>
                 <td>
-                  <button id="accept" class="btn btn-success" type="button" name="accept" style="margin-right:5px">Aceitar</button>
+                  <button id="accept-request" class="btn btn-success" type="button" name="accept" style="margin-right:5px">Aceitar</button>
                   <button id="decline-request" class="btn btn-danger" type="button" name="decline">Recusar </button>
                 </td>
               </tr>
@@ -243,6 +243,8 @@
 
       $("#accept-request").on("click", function(){
         var notificationId = $(this).closest('tr').children().children().val();
+
+
         $.ajax({
           url: '/acceptrequest/' + notificationId,
           method : 'post',
@@ -251,12 +253,56 @@
             _method : 'delete',
           },
           success: function(data){
-            console.log('aishdiaushd');
+            //Delete row from notifications
             var empty = isEmpty($('#table').children('tbody').children().length);
             if(empty){
               $('#request-table').empty();
               $('#request-table').append('<p>Nenhum pedido pendente</p>');
             }
+            //Add row at loans
+            var date = new Date();
+            var dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + 14);
+
+            date = dateFormat(date);
+            dueDate = dateFormat(dueDate);
+
+            var newLoan = '<tr>' +
+                            '<td class="options hidden">'+
+                              '<input class="items" type="checkbox" value="'+ data.ln_id +'">' +
+                              '<input type="hidden" name="ln_bk_id" value="'+ book +'">' +
+                            '</td>' +
+                            '<td>' + userName + '</td>' +
+                            '<td>' + bookName + '</td>' +
+                            '<td>' + date + '</td>' +
+                            '<td>' + dueDate + '</td>' +
+                            '<td style="text-align:center"><i class="fa fa-smile-o" style="color:green; font-size:22px"></i></td>' +
+                          '</tr>';
+            //Check items
+            if(isEmpty($('#table').children('tbody').children().length)){
+              $('#p').remove();
+              $('#table').empty();
+              var thead = '<thead>' +
+                            '<tr>' +
+                            '<th class="options hidden">' +
+                              '<input id="check-all" type="checkbox">' +
+                            '</th>' +
+                            '<th>Usuário</th>' +
+                            '<th>Livro</th>' +
+                            '<th>Data de empréstimo</th>' +
+                            '<th>Data de devolução</th>' +
+                            '<th style="text-align:center">Situação</th>' +
+                            '</tr>' +
+                          '</thead>';
+              $('#table').append(thead);
+              $('#table').append('<tbody class="table-body">' + newLoan + '</tbody>');
+
+            } else {
+              $('.table-body').append(newLoan);
+            }
+            $("#btn-delete").on("click", onClickBtnDelete);
+            $('#check-all').on("click", checkAll);
+
           },
           error: function(data){
             console.log('moises');
